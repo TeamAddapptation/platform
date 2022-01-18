@@ -1,0 +1,13 @@
+#topic-line-chart {
+  height: 200px;
+  width: auto;
+}
+#score-table {
+  overflow: auto;
+}
+#marketing-engagement {
+  overflow: auto;
+}
+#sales-engagement {
+  overflow: auto;
+}
