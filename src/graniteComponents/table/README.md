@@ -24,9 +24,32 @@ The value to be displayed in the cell. This can also be used for calculating a d
 
 ### href - `URL`
 
-'td' cells will wrap the `value` with the provided URL.
+Body cells will wrap the `value` with the provided URL.
 
 ### color_label - `HEX` or `RGB/RGBA`
 
-`th` cells with a defined color label will display a 2px bottom border with the provided color.
-`td` cells with a defined color label will display a 2px left border with the provided color.
+Header cells with a defined color label will display a 2px bottom border with the provided color.
+Body cells with a defined color label will display a 2px left border with the provided color.
+
+### text_align - `String` (left, center, right)
+
+Value alignment inside the table cell. Default value is `left`.
+
+### strength - `Boolean`
+
+Function call that returns the `value` wrapped in a div with a dynamic class name based on the `value`.
+
+```javascript
+function strength(newCell, cell) {
+  if (cell.value <= 50) {
+    newCell.innerHTML = `<span class="g__weak">${cell.value}</span>`;
+    return newCell;
+  } else if (cell.value > 50 && cell.value < 75) {
+    newCell.innerHTML = `<span class="g__moderate">${cell.value}</span>`;
+    return newCell;
+  } else {
+    newCell.innerHTML = `<span class="g__strong">${cell.value}</span>`;
+    return newCell;
+  }
+}
+```
