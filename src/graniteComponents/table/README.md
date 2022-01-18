@@ -43,13 +43,38 @@ Function call that returns the `value` wrapped in a div with a dynamic class nam
 function strength(newCell, cell) {
   if (cell.value <= 50) {
     newCell.innerHTML = `<span class="g__weak">${cell.value}</span>`;
-    return newCell;
   } else if (cell.value > 50 && cell.value < 75) {
     newCell.innerHTML = `<span class="g__moderate">${cell.value}</span>`;
-    return newCell;
   } else {
     newCell.innerHTML = `<span class="g__strong">${cell.value}</span>`;
-    return newCell;
   }
+  return newCell;
 }
 ```
+
+### percent_change - `Boolean`
+
+Function call that adds a dyanmic class to the table cell and returns a formatted `value`. Positive numbers include an up arrow and negative numbers include a down arrow.
+
+```javascript
+function percentChange(newCell, cell) {
+  if (cell.value > 0) {
+    newCell.classList.add("g__strong");
+    newCell.innerHTML = `<i class="far fa-long-arrow-up"></i> ${cell.value}%`;
+  } else if (cell.value === 0) {
+    newCell.classList.add("g__moderate");
+    newCell.innerHTML = `${cell.value}%`;
+  } else {
+    newCell.classList.add("g__weak");
+    let number = cell.value.toString();
+    newCell.innerHTML = `<i class="far fa-long-arrow-down"></i> ${number.slice(
+      1
+    )}%`;
+  }
+  return newCell;
+}
+```
+
+### tooltip - `String`
+
+The tooltip string in rendered as an HTML block. You have complete control over the content.

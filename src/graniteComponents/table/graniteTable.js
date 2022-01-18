@@ -321,7 +321,7 @@ export default function graniteTable(jsonBlock) {
             newCell.innerHTML = "";
             strength(newCell, cell);
           }
-          if (cell.percentChange) {
+          if (cell.percent_change) {
             newCell.innerHTML = "";
             percentChange(newCell, cell);
           }
@@ -397,14 +397,12 @@ export default function graniteTable(jsonBlock) {
   function strength(newCell, cell) {
     if (cell.value <= 50) {
       newCell.innerHTML = `<span class="g__weak">${cell.value}</span>`;
-      return newCell;
     } else if (cell.value > 50 && cell.value < 75) {
       newCell.innerHTML = `<span class="g__moderate">${cell.value}</span>`;
-      return newCell;
     } else {
       newCell.innerHTML = `<span class="g__strong">${cell.value}</span>`;
-      return newCell;
     }
+    return newCell;
   }
 
   /*---------------------------------------------
@@ -414,19 +412,17 @@ export default function graniteTable(jsonBlock) {
     if (cell.value > 0) {
       newCell.classList.add("g__strong");
       newCell.innerHTML = `<i class="far fa-long-arrow-up"></i> ${cell.value}%`;
-      return newCell;
     } else if (cell.value === 0) {
       newCell.classList.add("g__moderate");
       newCell.innerHTML = `${cell.value}%`;
-      return newCell;
     } else {
       newCell.classList.add("g__weak");
       let number = cell.value.toString();
       newCell.innerHTML = `<i class="far fa-long-arrow-down"></i> ${number.slice(
         1
       )}%`;
-      return newCell;
     }
+    return newCell;
   }
   /*---------------------------------------------
     Score
@@ -436,17 +432,15 @@ export default function graniteTable(jsonBlock) {
       newCell.classList.add("g__strong");
       newCell.classList.add("g__strong-bkg");
       newCell.innerHTML = `${cell.value}`;
-      return newCell;
     } else if (cell.value >= 50 && cell.value < 70) {
       newCell.classList.add("g__moderate");
       newCell.classList.add("g__moderate-bkg");
       newCell.innerHTML = `${cell.value}`;
-      return newCell;
     } else {
       newCell.classList.add("g__weak");
       newCell.classList.add("g__weak-bkg");
       newCell.innerHTML = `${cell.value}`;
-      return newCell;
     }
+    return newCell;
   }
 }
