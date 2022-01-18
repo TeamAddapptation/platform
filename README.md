@@ -1,64 +1,80 @@
-    __________________
-    |                |
-    |    .:--.'.     |
-    |   / |   \ |    |  addapptation llc.
-    |   `" __ | |    |
-    |    .'.''| |    |  container "image" for microapps on kubernetes
-    |   / /   | |_   |  serves as a base rails instance + gems, libs and binaries
-    |   \ \._,\ '/   |
-    |   `--'  `"     |
-    |________________|
+# Granite Table / Scorecard
 
-# PlatformDev
+The current state of this micro is used for rendering the scorecard and table front-end.
 
-Addappters (Front-End Micros) Development Environment for Platform 2020
+## Option Attributes
 
-# Guidelines for Gateway
+### datatables - `Boolean`
 
-- Addappters must be developed, code reviewed and merged into the master codebase all within GitHub
-- GitHub will serve as the Dev environment for Addappters, while Azure will host the Stage and Prod versions
-- The atomic purpose of code blocks referred to as Back-End Micros is to ****\_\_\_\_****
+Activated the 3rd party plugin datatables.js
 
-# Addappter Bundle version
+### paging - `Boolean`
 
-- initial dispatcher that defines reference dictionary of versioned addappter libraries containing versioned addappter js files is found in the a\_\_global.js file
+Turn on pagination
 
-# Versioning
+### page_length - `Integer`
 
-- use semantic versioning (https://semver.org/) to name addappter bundles defined in a\_\_global.js
+How may rows (records) to display on a single page
 
-# File Structure
+## Record Attributes
 
-- an addappter is an function that takes JSON as a parameter and includes and/or generates the necessary css, html, and helper js functions to acheive the required functionality
+### value - `String or Integer`
 
-# Smoke Tests
+The value to be displayed in the cell. This can also be used for calculating a different output based on predefined parameters.
 
-- every micro file should have a similarly named .html file containing sample JSON and a reference to the micro .js file.
+### href - `URL`
 
-# Developer Code of Conduct
+Body cells will wrap the `value` with the provided URL.
 
-We, the Product Development Team of Addapptation, intending to be of sound mind and codebase, do abide by the following guidelines:
+### color_label - `HEX` or `RGB/RGBA`
 
-- We adopt the HTML, CSS and Javascript Style Guidelines referenced at
+Header cells with a defined color label will display a 2px bottom border with the provided color.
+Body cells with a defined color label will display a 2px left border with the provided color.
 
-  - HTML: https://cssguidelin.es/
-  - CSS: https://github.com/airbnb/css#oocss-and-bem
-  - JS: https://github.com/airbnb/javascript
+### text_align - `String` (left, center, right)
 
-- All development will take place in a branch off of the master branch. Branch names should include the name of the ticket/issue. Branches intended to fix functionality in Stage or Live should include the phrase "hotfix" in them.
-- Pull requests intended to merge development code into master must escalate to a code review of at least one developer, and ideally a developer familiar with that area of the codebase.
-- Once notified of a pull request awaiting code review, the reviewer has 24 hours to review or notify developer of inability to review or else be subject to a team-approved consequence. Pull requests taking longer than 24 hours to be approved or rejected will become first priority for entire team.
-- Once a pull request is approved, it is the responsibility of the developer to merge into master by first pulling the latest version of master, handling merge conflicts locally and then merging the updated development branch into master. Changing an approved pull request without discussing with the approver is discouraged.
-- Stable development master will be pushed to stage master. Any problems discovered in integration or end-to-end testing in the stage environment will result in the attending developer creating a hotfix branch and proceeding, without code review if necessary, to merge a hotfix whose name includes both the term 'hotfix' as well as the likely dev branch linked to the causal problem.
+Value alignment inside the table cell. Default value is `left`.
 
-# HTML Best Practices
+### strength - `Boolean`
 
-Use the Semantic Markup approach in which tags denote information design, not visual design.
+Function call that returns the `value` wrapped in a div with a dynamic class name based on the `value`.
 
-# CSS Best Practices
+```javascript
+function strength(newCell, cell) {
+  if (cell.value <= 50) {
+    newCell.innerHTML = `<span class="g__weak">${cell.value}</span>`;
+  } else if (cell.value > 50 && cell.value < 75) {
+    newCell.innerHTML = `<span class="g__moderate">${cell.value}</span>`;
+  } else {
+    newCell.innerHTML = `<span class="g__strong">${cell.value}</span>`;
+  }
+  return newCell;
+}
+```
 
-Use CSS Grid for all new layout development, and a combination of ID-specific, style block injections and CSS Variables in micro .js to replace SASS.
+### percent_change - `Boolean`
 
-# JS Best Practices
+Function call that adds a dyanmic class to the table cell and returns a formatted `value`. Positive numbers include an up arrow and negative numbers include a down arrow.
 
-Use ES6 features wherever possible to optimize performance rather than to compress lines of code. Any approach that takes significantly longer but uses fewer lines of code should be abandoned in favor of approaches that are more performant.
+```javascript
+function percentChange(newCell, cell) {
+  if (cell.value > 0) {
+    newCell.classList.add("g__strong");
+    newCell.innerHTML = `<i class="far fa-long-arrow-up"></i> ${cell.value}%`;
+  } else if (cell.value === 0) {
+    newCell.classList.add("g__moderate");
+    newCell.innerHTML = `${cell.value}%`;
+  } else {
+    newCell.classList.add("g__weak");
+    let number = cell.value.toString();
+    newCell.innerHTML = `<i class="far fa-long-arrow-down"></i> ${number.slice(
+      1
+    )}%`;
+  }
+  return newCell;
+}
+```
+
+### tooltip - `String`
+
+The tooltip string in rendered as an HTML block. You have complete control over the content.
