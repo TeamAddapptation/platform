@@ -17,3 +17,12 @@ Turn on pagination
 How may rows (records) to display on a single page
 
 ## Record Attributes
+
+### value = `String or Integer`
+
+The value to be displayed in the cell. This can also be used for calculating a different output based on predefined parameters.
+
+### color_label = `HEX or RGB/RGBA`
+
+`th` cells with a defined color label will display a 2px bottom border with the provided color.
+`td` cells with a defined color label will display a 2px left border with the provided color.
