@@ -6,7 +6,7 @@ The current state of this micro is used for rendering the scorecard and table fr
 
 ### datatables - `Boolean`
 
-Activated the 3rd party plugin datatables.js
+Activates the 3rd party plugin datatables.js
 
 ### paging - `Boolean`
 
